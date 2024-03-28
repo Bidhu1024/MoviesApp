@@ -1,12 +1,15 @@
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { CirclesWithBar } from "react-loader-spinner";
 
 const Home = () => {
   const [movieData, setMovieData] = useState([]);
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           "https://moviesverse1.p.rapidapi.com/top-box-office",
           {
@@ -18,6 +21,7 @@ const Home = () => {
           }
         );
         setMovieData(response.data.movies);
+        setLoading(false)
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -47,24 +51,64 @@ const Home = () => {
         Here is a list of 250 top rated movies
       </Typography>
       <Grid container spacing={2}>
-        {movieData.map((movie: any, idx) => {
-          return (
-            <Grid item key={idx} sx={{ margin: "0px auto" }}>
-              <Box display={"flex"} flexDirection={"column"} >
-                <img
-                  style={{ height: 300, width: 400,borderRadius:"10px" }}
-                  src={movie?.posterImage}
-                  alt="poster"
-                />
-                <Typography> <span style={{fontWeight:"bold"}}>Title:</span> {movie.title}</Typography>
-                <Typography><span style={{fontWeight:"bold"}}>IMDB Rating :</span> {movie.imdbRating}</Typography>
-                <Typography><span style={{fontWeight:"bold"}}>TotalGross :</span> {movie.totalGross}</Typography>
-                <Typography><span style={{fontWeight:"bold"}}>Weekend Gross :</span> {movie.weekendGross}</Typography>
-                <Typography><span style={{fontWeight:"bold"}}>Weeks Released :</span> {movie.weeksReleased}</Typography>
-              </Box>
-            </Grid>
-          );
-        })}
+        {loading ? (
+<Box display={"flex"} justifyContent={"center"} alignItems={"center"} width={"100%"} height={"100%"} sx={{mt:"5rem"}}>
+          <CirclesWithBar
+            height="100"
+            width="100"
+            color="#4fa94d"
+            outerCircleColor="#4fa94d"
+            innerCircleColor="#4fa94d"
+            barColor="#4fa94d"
+            ariaLabel="circles-with-bar-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={true}
+            
+          />
+          </Box>
+        ) : (
+          movieData.map((movie: any, idx) => {
+            return (
+              <Grid item key={idx} sx={{ margin: "0px auto" }}>
+                <Box
+                  display={"flex"}
+                  flexDirection={"column"}
+                  bgcolor={"whitesmoke"}
+                  padding={".5rem"}
+                  boxShadow={2}
+                >
+                  <img
+                    style={{ height: 300, width: 400, borderRadius: "10px" }}
+                    src={movie?.posterImage}
+                    alt="poster"
+                  />
+                  <Typography>
+                    {" "}
+                    <span style={{ fontWeight: "bold" }}>Title:</span>{" "}
+                    {movie.title}
+                  </Typography>
+                  <Typography>
+                    <span style={{ fontWeight: "bold" }}>IMDB Rating :</span>{" "}
+                    {movie.imdbRating}
+                  </Typography>
+                  <Typography>
+                    <span style={{ fontWeight: "bold" }}>TotalGross :</span>{" "}
+                    {movie.totalGross}
+                  </Typography>
+                  <Typography>
+                    <span style={{ fontWeight: "bold" }}>Weekend Gross :</span>{" "}
+                    {movie.weekendGross}
+                  </Typography>
+                  <Typography>
+                    <span style={{ fontWeight: "bold" }}>Weeks Released :</span>{" "}
+                    {movie.weeksReleased}
+                  </Typography>
+                </Box>
+              </Grid>
+            );
+          })
+        )}
       </Grid>
     </Stack>
   );
