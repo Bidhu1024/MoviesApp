@@ -21,7 +21,7 @@ const Home = () => {
           }
         );
         setMovieData(response.data.movies);
-        setLoading(false)
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -29,7 +29,7 @@ const Home = () => {
 
     fetchData();
   }, []);
-  console.log(movieData);
+
   return (
     <Stack height={"100%"} width={"100%"}>
       <Box
@@ -48,24 +48,30 @@ const Home = () => {
         fontWeight={"bold"}
         sx={{ margin: "0 auto", mt: "0.6rem" }}
       >
-        Here is a list of 250 top rated movies
+        Here is a list of top rated movies
       </Typography>
       <Grid container spacing={2}>
         {loading ? (
-<Box display={"flex"} justifyContent={"center"} alignItems={"center"} width={"100%"} height={"100%"} sx={{mt:"5rem"}}>
-          <CirclesWithBar
-            height="100"
-            width="100"
-            color="#4fa94d"
-            outerCircleColor="#4fa94d"
-            innerCircleColor="#4fa94d"
-            barColor="#4fa94d"
-            ariaLabel="circles-with-bar-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-            
-          />
+          <Box
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            width={"100%"}
+            height={"100%"}
+            sx={{ mt: "5rem" }}
+          >
+            <CirclesWithBar
+              height="100"
+              width="100"
+              color="#4fa94d"
+              outerCircleColor="#4fa94d"
+              innerCircleColor="#4fa94d"
+              barColor="#4fa94d"
+              ariaLabel="circles-with-bar-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
           </Box>
         ) : (
           movieData.map((movie: any, idx) => {
