@@ -1,10 +1,15 @@
-import Home from "./components/Home";
-import Navbar from "./components/Navbar";
+
+
+import { lazy, Suspense } from "react";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Trailer from "./components/Trailer";
+const Home = lazy(() => import('./components/Home'));
+const Navbar = lazy(() => import('./components/Navbar'));
+const Trailer = lazy(() => import('./components/Trailer'));
 function App() {
   return (
     <>
+    <Suspense fallback={<div>Loading...</div>}>
       <Router>
         <Navbar />
         <Routes>
@@ -12,6 +17,7 @@ function App() {
           <Route path="/trailers" element={<Trailer />} />
         </Routes>
       </Router>
+      </Suspense>
     </>
   );
 }
