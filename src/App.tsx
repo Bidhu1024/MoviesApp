@@ -2,11 +2,16 @@
 
 import { lazy, Suspense } from "react";
 
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 const Home = lazy(() => import('./components/Home'));
 const Navbar = lazy(() => import('./components/Navbar'));
 const Trailer = lazy(() => import('./components/Trailer'));
+
 function App() {
+  
+
+
+
   return (
     <>
     <Suspense fallback={<div>Loading...</div>}>
