@@ -38,7 +38,7 @@ const Trailer = () => {
   return (
     <Stack>
       <Typography>
-Enjoy the trailers of latest movies here. please make sure to watch the movies in theatre for best experiences.
+Enjoy the trailers of latest movies here. please make sure to watch the movies in theatre for best experience.
       </Typography>
 
     </Stack>
